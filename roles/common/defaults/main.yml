@@ -1,0 +1,5 @@
+---
+admin_group: "jciadm"
+admin_name: "jciadm"
+admin_password: "$6$MvF9f1mU6zXXXpeW$1QOcfnqDrhrcxnXSsqEyd.GuT8HFATGKxkFvRlalRFs/mdg7cPrWdQD7KBGwZFztXAOQFE870OTGBVCsVdRDs."
+admin_shell: "/bin/bash"

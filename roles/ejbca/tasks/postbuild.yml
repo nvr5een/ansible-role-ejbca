@@ -1,0 +1,28 @@
+---
+- name: Configure open ports with 'firewalld'
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items:
+    - 3306/tcp
+    - 8443/tcp
+
+- name: Copy 'ejbca.service'
+  template:
+    src: ejbca.service.j2
+    dest: /etc/systemd/system/ejbca.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Ensure systemd has read changes
+  systemd:
+    daemon_reload: yes
+
+- name: Ensure service is running and enabled on boot
+  service: name=ejbca state=restarted enabled=yes
+
+# - name: Rebooting...
+#   shell: "sleep 5 && reboot"

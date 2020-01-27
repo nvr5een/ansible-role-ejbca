@@ -1,0 +1,16 @@
+[Unit]
+Description={{ jboss_user }} PKI
+After=network.target
+
+[Service]
+Type=simple
+User={{ jboss_user }}
+Group={{ jboss_group }}
+WorkingDirectory={{ jboss_home }}
+ExecStart={{ jboss_home }}/wildfly/bin/standalone.sh -b 0.0.0.0
+ExecStop={{ jboss_home }}/wildfly/bin/jboss-cli.sh --connect command=:shutdown
+Restart=on-failure
+RestartSec=300s
+
+[Install]
+WantedBy=multi-user.target

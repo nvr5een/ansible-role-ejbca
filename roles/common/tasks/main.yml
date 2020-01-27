@@ -1,0 +1,41 @@
+---
+- name: Ensure user groups exist
+  group:
+    name: "{{ admin_group }}"
+    state: present
+  tags: groups
+
+- name: Configure "{{ admin_group }}" group for passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^%{{ admin_group }}"
+    line: "%{{ admin_group }} ALL=(ALL) NOPASSWD: ALL"
+    validate: visudo -cf %s
+  tags: sudoers
+
+- name: Create administrator account "{{ admin_name }}"
+  user:
+    name: "{{ admin_name }}"
+    password: "{{ admin_password }}"
+    shell: "{{ admin_shell }}"
+    groups: "{{ admin_group }}"
+    append: yes
+  tags: admin
+
+- name: Install base packages for CentOS
+  yum:
+    state: latest
+    name:
+      - epel-release
+      - firewalld
+      - net-tools
+      - psmisc
+      - tar
+      - unzip
+      - wget
+  tags: packages
+
+- name: Ensure 'firewalld' is running and enabled on boot
+  service: name=firewalld state=started enabled=yes
+  tags: firewalld

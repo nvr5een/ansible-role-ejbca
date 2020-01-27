@@ -1,0 +1,7 @@
+---
+- import_tasks: prebuild.yml
+  tags: prebuild
+- import_tasks: build.yml
+  tags: build
+- import_tasks: postbuild.yml
+  tags: postbuild

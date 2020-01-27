@@ -1,0 +1,48 @@
+---
+- name: Ensure "{{ hsm_home }}" exists
+  file:
+    path: "{{ hsm_home }}"
+    owner: "{{ hsm_user }}"
+    group: "{{ hsm_group }}"
+    state: directory
+    mode: 0755
+
+- name: Check for YubiHSM archive
+  stat:
+    path: "{{ hsm_home }}/{{ yubihsm2_archive }}"
+  register: yubihsm_archive
+
+- name: Download YubiHSM archive with check (sha256)
+  get_url:
+    url: "https://developers.yubico.com/YubiHSM2/Releases/{{ yubihsm2_archive }}"
+    dest: "{{ hsm_home }}"
+    checksum: sha256:5e65020f03296c202fa0eb95bb40c301fec6afb1c40f8c4605a941ca844195a1
+  when: yubihsm_archive.stat.exists == False
+
+- name: Check for YubiHSM directory
+  stat:
+    path: "{{ hsm_home }}/yubihsm2-sdk"
+  register: yubihsm_directory
+
+- name: Unpack YubiHSM archive
+  unarchive:
+    src: "{{ hsm_home }}/{{ yubihsm2_archive }}"
+    dest: "{{ hsm_home }}"
+    owner: "{{ hsm_user }}"
+    group: "{{ hsm_group }}"
+    remote_src: yes
+  when: yubihsm_directory.stat.exists == False
+
+- name: Copy 'pkginst.sh'
+  copy:
+    src: pkginst.sh
+    dest: "{{ hsm_home }}"
+    owner: root
+    group: root
+    mode: 0744
+
+- debug:
+    msg: "'pkginst.sh' stout logged to {{ hsm_home }}/pkginst.log"
+
+- name: Run 'pkginst.sh'
+  shell: "{{ hsm_home }}/pkginst.sh &>> {{ hsm_home }}/pkginst.log"

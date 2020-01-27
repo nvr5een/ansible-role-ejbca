@@ -1,0 +1,57 @@
+---
+- name: Ensure user group "{{ jboss_group }}" exists
+  group:
+    name: "{{ jboss_group}}"
+    state: present
+
+- name: Create user account "{{ jboss_user }}"
+  user:
+    name: "{{ jboss_user }}"
+    groups: "{{ jboss_group }}"
+    system: yes
+    append: yes
+
+- name: Install dependencies for EJBCA
+  yum:
+    state: latest
+    name:
+      - ant 
+      - bc
+      - java-1.8.0-openjdk-devel 
+      - mariadb-server
+      - openssl
+      - patch
+
+- name: Install Python connector for MySQL (CentOS 7)
+  yum:
+    state: latest
+    name:
+      - MySQL-python
+  when:
+    - ansible_facts['distribution'] == "CentOS"
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: Install Python connector for MySQL (CentOS 8)
+  yum:
+    state: latest
+    name:
+      - python2-PyMySQL
+      - python3-PyMySQL
+  when:
+    - ansible_facts['distribution'] == "CentOS"
+    - ansible_facts['distribution_major_version'] == "8"
+
+- name: Ensure 'mariadb' is running and enabled on boot
+  service: name=mariadb state=started enabled=yes
+
+- name: Ensure database "{{ ejbca_database }}" exists
+  mysql_db:
+    name: "{{ ejbca_database }}"
+    state: present
+
+- name: Ensure MySQL user "{{ ejbca_mysql_user }}" exists
+  mysql_user:
+    name: "{{ ejbca_mysql_user }}"
+    password: "{{ ejbca_mysql_password }}"
+    priv: "*.*:ALL,GRANT"
+    state: present

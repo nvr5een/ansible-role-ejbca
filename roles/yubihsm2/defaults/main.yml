@@ -1,0 +1,6 @@
+---
+yubihsm2_version: '2019-12-centos7'
+yubihsm2_archive: 'yubihsm2-sdk-{{ yubihsm2_version }}-amd64.tar.gz'
+hsm_home: "/opt/hsm"
+hsm_user: "jciadm"
+hsm_group: "jciadm"

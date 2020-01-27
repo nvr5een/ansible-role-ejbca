@@ -1,0 +1,8 @@
+---
+ejbca_version: '6_15_2_1'
+ejbca_mysql_user: ejbca
+ejbca_mysql_password: ejbca
+ejbca_database: ejbca
+jboss_home: /opt/jboss
+jboss_user: jboss
+jboss_group: jboss

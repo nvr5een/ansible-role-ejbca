@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+
+  roles:
+    - { role: common, tags: ['common'] }
+    - { role: ejbca, tags: ['ejbca'] }
+    - { role: yubihsm2, tags: ['yubihsm2'] }

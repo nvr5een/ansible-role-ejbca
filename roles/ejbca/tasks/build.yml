@@ -1,0 +1,75 @@
+---
+- name: Ensure "{{ jboss_home }}" exists
+  file:
+    path: "{{ jboss_home }}"
+    owner: "{{ jboss_user }}"
+    group: "{{ jboss_group }}"
+    state: directory
+    mode: 0755
+
+- name: Check for EJBCA archive
+  stat:
+    path: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}.zip"
+  register: ejbca_archive
+
+- name: Download EJBCA archive with check (sha256)
+  get_url:
+    url: "https://downloads.sourceforge.net/project/ejbca/ejbca6/ejbca_{{ ejbca_version }}/ejbca_ce_{{ ejbca_version }}.zip"
+    dest: "{{ jboss_home }}"
+    checksum: sha256:74743302559645761481ce17259541f2b0d66c97cea051c8dff511bb037642a7
+  when: ejbca_archive.stat.exists == False
+
+- name: Check for EJBCA directory
+  stat:
+    path: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}"
+  register: ejbca_directory
+
+- name: Unpack EJBCA archive
+  unarchive:
+    src: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}.zip"
+    dest: "{{ jboss_home }}"
+    owner: "{{ jboss_user }}"
+    group: "{{ jboss_group }}"
+    remote_src: yes
+  when: ejbca_directory.stat.exists == False
+
+- name: Copy 'ejbca-setup.sh'
+  template:
+    src: ejbca-setup.sh.j2
+    dest: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}/bin/extra/ejbca-setup.sh"
+    owner: "{{ jboss_user }}"
+    group: "{{ jboss_group }}"
+    mode: 0775
+
+- name: Copy 'build.xml'
+  copy:
+    src: build.xml
+    dest: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}/modules/build.xml"
+    owner: "{{ jboss_user }}"
+    group: "{{ jboss_group }}"
+    mode: 0664
+
+- name: Check for EJBCA install.log
+  stat:
+    path: "{{ jboss_home }}/install.log"
+  register: ejbca_log
+
+- debug:
+    msg: "'ejbca-setup.sh' stout logged to {{ jboss_home }}/install.log"
+
+- name: Running 'ejbca-setup.sh' -- Please be patient, this will take a few minutes
+  become: yes
+  become_user: "{{ jboss_user }}"
+  shell: "{{ jboss_home }}/ejbca_ce_{{ ejbca_version }}/bin/extra/ejbca-setup.sh >> {{ jboss_home }}/install.log"
+  args:
+    chdir: "{{ jboss_home }}/"
+  when: ejbca_log.stat.exists == False
+
+- name: Running 'tail' on {{ jboss_home }}/install.log
+  shell: "tail -4 {{ jboss_home }}/install.log"
+  register: data
+  tags: result
+
+- debug:
+    msg: "{{ data.stdout }}"
+  tags: result
