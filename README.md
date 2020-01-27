@@ -13,7 +13,7 @@ works great.
 ## Usage
 
 Clone this repository to your controller machine and change the IP address in
-`inventories/hosts` to your taget server.
+`inventories/hosts` to your target server.
 
 Run the following command as a normal user in the root of this repository:
 
