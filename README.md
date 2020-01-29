@@ -128,7 +128,7 @@ a physical CentOS 7 server.
 
 During the EJBCA installation, YubiHSM 2 tools are installed and administrative
 user `jciadm` is created. It is assumed `jciadm` is logged into the GUI
-environment of the previously configured CentOS 7 server to perform the manual
+environment of the previously configured target server to perform the manual
 YubiHSM 2 configuration.
 
 Ensure the Yubico USB device is inserted and user `jciadm` is logged in using
