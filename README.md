@@ -7,7 +7,7 @@
 * Describes how to configure a YubiHSM 2 device for use with PrimeKey EJBCA on
   bare-metal
 
-### Requirements
+## Requirements
 
 * A physical CentOS 7 server with any GUI and `firefox` installed
 * A Ubuntu 18+ instance fuctioning as an Ansible controller with `ansible` and
