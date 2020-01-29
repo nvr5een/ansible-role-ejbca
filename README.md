@@ -90,11 +90,35 @@ needs to be imported into Firefox in order to access the EJBCA web interface at
 
 ### Import p12 keystore (Firefox)
 
+On the target CentOS server, launch **Firefox** and select **Preferences** from
+the **Hamburger Menu**.
+
 ![](images/ejbca1.png)
+
+Click **Privacy & Security**, then scroll to the bottom of the page and click
+**View Certificates**
+
 ![](images/ejbca2.png)
+
+Click **Import**, then navigate to `/opt/jboss/ejbca_ce_6_15_2_1/p12/` and
+select the `superadmin.p12` file.
+
 ![](images/ejbca3.png)
+
+A pop-up window will prompt for a password. Copy and paste the password
+displayed during the install process. An Ansible command do display this
+information again from controller machine is described above, or, simply run
+`tail /opt/jboss/install.log` on the target server.
+
 ![](images/ejbca4.png)
+
+Navigate to `https://localhost:8443/ejbca`, then click **OK** to present the
+imported certificate as identification.
+
 ![](images/ejbca5.png)
+
+The EJBCA GUI is now accessable.
+
 ![](images/ejbca6.png)
 
 ## Configure YubiHSM 2 device
