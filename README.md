@@ -2,8 +2,8 @@
 
 ## What this does
 
-* Automates the installation and initial configuration of EJBCA and YubiHSM 2
-  toolset with Ansible
+* Automates the installation and initial configuration of PrimeKey EJBCA and
+  YubiHSM 2 toolset with Ansible
 * Describes how to configure a YubiHSM 2 device for use with PrimeKey EJBCA on
   bare-metal
 
