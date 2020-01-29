@@ -124,7 +124,7 @@ The EJBCA web interface is now accessable.
 ## Configure YubiHSM 2 device
 
 This section describes how to configure a YubiHSM 2 device for use with EJBCA on
-a bare-metal CentOS 7 server.
+a physical CentOS 7 server.
 
 During the EJBCA installation, YubiHSM 2 tools are installed and administrative
 user `jciadm` is created. It is assumed `jciadm` is logged into the GUI
