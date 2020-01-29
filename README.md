@@ -106,8 +106,8 @@ select the `superadmin.p12` file.
 ![](images/ejbca3.png)
 
 A pop-up window will prompt for a password. Copy and paste the password
-displayed during the install process. An Ansible command do display this
-information again from controller machine is described above, or, simply run
+displayed during the install process. An Ansible command to display this
+information again from the controller machine is detailed above, or, simply run
 `tail /opt/jboss/install.log` on the target server.
 
 ![](images/ejbca4.png)
@@ -117,7 +117,7 @@ imported certificate as identification.
 
 ![](images/ejbca5.png)
 
-The EJBCA GUI is now accessable.
+The EJBCA web interface is now accessable.
 
 ![](images/ejbca6.png)
 
