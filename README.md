@@ -90,6 +90,13 @@ needs to be imported into Firefox in order to access the EJBCA web interface at
 
 ### Import p12 keystore (Firefox)
 
+![](images/ejbca1.png)
+![](images/ejbca2.png)
+![](images/ejbca3.png)
+![](images/ejbca4.png)
+![](images/ejbca5.png)
+![](images/ejbca6.png)
+
 ## Configure YubiHSM 2 device
 
 This section describes how to configure a YubiHSM 2 device for use with EJBCA on
