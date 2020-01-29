@@ -1,6 +1,6 @@
 # Ansible Role: EJBCA + YubiHSM 2 toolset
 
-## What this does
+## Description
 
 * Automates the installation and initial configuration of PrimeKey EJBCA and
   YubiHSM 2 toolset with Ansible
