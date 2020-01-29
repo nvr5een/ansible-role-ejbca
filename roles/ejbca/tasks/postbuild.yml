@@ -23,6 +23,3 @@
 
 - name: Ensure service is running and enabled on boot
   service: name=ejbca state=restarted enabled=yes
-
-# - name: Rebooting...
-#   shell: "sleep 5 && reboot"
