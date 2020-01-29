@@ -1,13 +1,13 @@
 # Ansible Role: EJBCA + YubiHSM 2 toolset
 
-## What this does
+### What this does
 
 * Automates the installation and initial configuration of EJBCA and YubiHSM 2
   toolset with Ansible
 * Describes how to configure a YubiHSM 2 device for use with PrimeKey EJBCA on
   bare-metal
 
-## Requirements
+### Requirements
 
 * A physical CentOS 7 server with any GUI and `firefox` installed
 * A Ubuntu 18+ instance fuctioning as an Ansible controller with `ansible` and
@@ -247,5 +247,5 @@ minimum of 10 seconds to factory reset.
 
 ## References
 
-https://support.yubico.com/helpdesk/attachments/2015010673207
-https://developers.yubico.com/YubiHSM2/Usage_Guides/Factory_reset.html
+* https://support.yubico.com/helpdesk/attachments/2015010673207
+* https://developers.yubico.com/YubiHSM2/Usage_Guides/Factory_reset.html
