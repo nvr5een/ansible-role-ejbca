@@ -1,6 +1,6 @@
 # Ansible Role: EJBCA + YubiHSM 2 toolset
 
-### What this does
+## What this does
 
 * Automates the installation and initial configuration of EJBCA and YubiHSM 2
   toolset with Ansible
